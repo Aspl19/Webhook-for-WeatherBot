@@ -49,16 +49,17 @@ def makeResponse(req):
   """
 
   speech = "The forecast for " + city + " for " + date + " is " + condition
+  
+  return {"fulfillmentMessages": [{"text": {"text": [speech]}}]}
 
-  return {
-    "speech" : speech,
-    "displayText" : speech,
-    "source" : "apiai-weather-webhook"
-    }
-
+#   return {
+#     "speech" : speech,
+#     "displayText" : speech,
+#     "source" : "apiai-weather-webhook"
+#     }
 
 
 if __name__ == "__main__":
   port = int(os.getenv('PORT', 5000))  # port defaults to 5000
   print("Starting app on port %d" % port)
-  app.run(debug = False, port = port, host = '0.0.0.0')  # Defaults to 127.0.0.1 (localhost) and '0.0.0.0' to have server externally
+  app.run(debug = True, port = port, host = '0.0.0.0')  # Defaults to 127.0.0.1 (localhost) and '0.0.0.0' to have server externally
