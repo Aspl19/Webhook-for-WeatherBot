@@ -1,5 +1,6 @@
 import json
 import os
+import re
 
 from flask import Flask
 from flask import request
@@ -21,11 +22,12 @@ def webhook():
 
 
 def makeResponse(req):
-  result = req.get("result")  #Based on the format of json from DialogFlow
+  result = req.get("queryResult")  #Based on the format of json from DialogFlow
   parameters = req.get("parameters")
   city = parameters.get("geo-city")
   date = parameters.get("date")
-
+  date = re.findall(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", date)[0]
+  
   r = requests.get("http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=40812ead86415b8f702757200cbbda8d")
   json_object = r.json()
   weather = json_object["list"]
