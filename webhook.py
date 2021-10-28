@@ -24,7 +24,7 @@ def webhook():
 
 def makeResponse(req):
   result = req.get("queryResult")  #Based on the format of json from DialogFlow
-  parameters = req.get("parameters")
+  parameters = result.get("parameters")
   city = parameters.get("geo-city")
   date = parameters.get("date")
   date = re.findall(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", date)[0]
